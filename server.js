@@ -102,6 +102,17 @@ listRoute.put(function(req, res) {
   });
 });
 
+// create /api/lists/:list_id for DELETE requests
+listRoute.delete(function(req, res) {
+  // use List model to find specific list by Id and remove
+  List.findByIdAndRemove(req.params.list_id, function(err) {
+    if (err)
+      res.send(err);
+    
+    res.json({ message: 'List removed!' });
+  });
+});
+
 // Register all routes with /api
 app.use('/api', router);
 
