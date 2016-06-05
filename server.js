@@ -41,6 +41,8 @@ listsRoute.post(function(req, res) {
   list.item1 = req.body.item1;
   list.item2 = req.body.item2;
   list.item3 = req.body.item3;
+  console.log(req.body.name);
+  console.log(req.body.item1);
   
   // save list and check for errors
   list.save(function(err) {
@@ -94,7 +96,7 @@ listRoute.put(function(req, res) {
       list.item3 = req.body.item3;
     
     // save the list and check for errors
-    list.save(function(err) {
+    list.save(function(err) {p
       if (err)
         res.send(err);
         
