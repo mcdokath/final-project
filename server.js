@@ -2,8 +2,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 var listController = require('./controllers/list');
 var userController = require('./controllers/user');
+var authController = require('./controllers/auth');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/todolist');
@@ -15,6 +17,9 @@ var app = express();
 app.use(bodyParser.urlencoded({
   extended:true
 }));
+
+// use passport with express
+app.use(passport.initialize());
 
 // create express router
 var router = express.Router();
@@ -33,7 +38,7 @@ router.route('/lists/:list_id')
 // create endpoint handlers for /users
 router.route('/users')
   .post(userController.postUsers)
-  .get(userController.getUsers);
+  .get(authController.isAuthenticated, userController.getUsers);
 
 // Register all routes with /api
 app.use('/api', router);
