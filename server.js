@@ -7,12 +7,16 @@ var listController = require('./controllers/list');
 var userController = require('./controllers/user');
 var authController = require('./controllers/auth');
 var clientController = require('./controllers/client');
+var ejs = require('ejs');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/todolist');
 
 // Create express application
 var app = express();
+
+// set view engine to ejs
+app.set('view engine', 'ejs');
 
 // use body-parser with express
 app.use(bodyParser.json());
