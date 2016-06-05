@@ -58,7 +58,7 @@ exports.putList = function(req, res) {
 // Create /api/lists/:list_id for DELETE requests
 exports.deleteList = function(req, res) {
   // use List model to find specific list and remove it
-  List.findByIdAndRemove(req.params.list_id, function(err) {
+  List.remove({ userId: req.user._id, _id: req.params.list_id}, function(err) {
     if (err)
       res.send(err);
     
