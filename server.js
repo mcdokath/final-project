@@ -75,6 +75,33 @@ listRoute.get(function(req, res) {
   });
 });
 
+// create /api/lists/:list_id for PUT requests
+listRoute.put(function(req, res) {
+  // use List model to find specific list by Id
+  List.findById(req.params.list_id, function(err, list) {
+    if (err)
+      res.send(err);
+    
+    // update list items TEST
+    if (req.body.name)
+      list.name = req.body.name;
+    if (req.body.item1)
+      list.item1 = req.body.item1;
+    if (req.body.item2)
+      list.item2 = req.body.item2;
+    if (req.body.item3)
+      list.item3 = req.body.item3;
+    
+    // save the list and check for errors
+    list.save(function(err) {
+      if (err)
+        res.send(err);
+        
+      res.json(list);
+    });
+  });
+});
+
 // Register all routes with /api
 app.use('/api', router);
 
