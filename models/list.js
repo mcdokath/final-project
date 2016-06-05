@@ -6,7 +6,8 @@ var listSchema = new mongoose.Schema({
   name: String,
   item1: String,
   item2: String,
-  item3: String
+  item3: String,
+  userId: String
 });
 
 // export model
