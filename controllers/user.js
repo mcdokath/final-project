@@ -18,7 +18,7 @@ exports.postUsers = function(req, res) {
 
 // create /api/users for GET requests
 exports.getUsers = function(req, res) {
-  Users.find(function(err, users) {
+  User.find(function(err, users) {
     if (err)
       res.send(err);
       
