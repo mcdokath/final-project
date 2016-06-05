@@ -2,14 +2,14 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
+var session = require('express-session');
 var passport = require('passport');
 var listController = require('./controllers/list');
 var userController = require('./controllers/user');
 var authController = require('./controllers/auth');
-var clientController = require('./controllers/client');
 var oauth2Controller = require('./controllers/oauth2');
-var ejs = require('ejs');
-var session = require('express-session');
+var clientController = require('./controllers/client');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/todolist');
@@ -50,17 +50,17 @@ router.route('/lists/:list_id')
   .put(authController.isAuthenticated, listController.putList)
   .delete(authController.isAuthenticated, listController.deleteList);
   
-// create endpoint handlers for /users
+// Create endpoint handlers for /users
 router.route('/users')
   .post(userController.postUsers)
   .get(authController.isAuthenticated, userController.getUsers);
-  
-// create endpoint handlers for /clients
+
+// Create endpoint handlers for /clients
 router.route('/clients')
   .post(authController.isAuthenticated, clientController.postClients)
   .get(authController.isAuthenticated, clientController.getClients);
 
-// create endpoint handlers for oauth2 authorize
+// Create endpoint handlers for oauth2 authorize
 router.route('/oauth2/authorize')
   .get(authController.isAuthenticated, oauth2Controller.authorization)
   .post(authController.isAuthenticated, oauth2Controller.decision);
@@ -69,7 +69,7 @@ router.route('/oauth2/authorize')
 router.route('/oauth2/token')
   .post(authController.isClientAuthenticated, oauth2Controller.token);
 
-// Register all routes with /api
+// Register all our routes with /api
 app.use('/api', router);
 
 // Start the server
