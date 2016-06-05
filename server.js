@@ -19,6 +19,13 @@ app.use(bodyParser.urlencoded({
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
 
+// Register all routes with /api
+app.use('/api', router);
+
+// Start the server
+app.listen(port);
+console.log('Insert list on port ' + port);
+
 // Create express router
 var router = express.Router();
 
@@ -115,10 +122,3 @@ listRoute.delete(function(req, res) {
     res.json({ message: 'List removed!' });
   });
 });
-
-// Register all routes with /api
-app.use('/api', router);
-
-// Start the server
-app.listen(port);
-console.log('Insert list on port ' + port);
