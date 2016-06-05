@@ -80,4 +80,3 @@ exports.deleteList = function(req, res) {
     res.json({ message: 'List removed!' });
   });
 };
-}
