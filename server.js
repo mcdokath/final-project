@@ -27,6 +27,29 @@ router.get('/', function(req, res) {
   res.json({ message: 'You are running dangerously low on beer!' });
 });
 
+// create new route for lists
+var listsRoute = router.route('/lists');
+
+// create /api/lists for POST requests
+listsRoute.post(function(req, res) {
+  // create new instance of List model
+  var list = new List();
+  
+  // assign list properties based on POST data
+  list.name = req.body.name;
+  list.item1 = req.body.item1;
+  list.item2 = req.body.item2;
+  list.item3 = req.body.item3;
+  
+  // save list and check for errors
+  list.save(function(err) {
+    if (err)
+      res.send(err);
+      
+    res.json({ message: 'List added!', data: list });
+  });
+});
+
 // Register all routes with /api
 app.use('/api', router);
 
