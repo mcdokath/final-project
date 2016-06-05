@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var List = require('./models/list');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/beerlocker');
+mongoose.connect('mongodb://localhost:27017/todolist');
 
 // Create express application
 var app = express();
