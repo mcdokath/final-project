@@ -61,6 +61,17 @@ listsRoute.get(function(req, res) {
   });
 });
 
+// create /api/lists/:list_id to GET a single list
+listsRoute.get(function(req, res) {
+  // use List model to find list by ID
+  List.findById(req.params.list_id, function(err, list) {
+    if (err)
+      res.send(err);
+    
+    res.json(list);
+  });
+});
+
 // Register all routes with /api
 app.use('/api', router);
 
