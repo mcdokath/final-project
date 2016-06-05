@@ -7,7 +7,7 @@ var listSchema = new mongoose.Schema({
   item1: String,
   item2: String,
   item3: String
-})
+});
 
 // export model
 module.exports = mongoose.model('List', listSchema);
