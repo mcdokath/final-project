@@ -96,7 +96,7 @@ listRoute.put(function(req, res) {
       list.item3 = req.body.item3;
     
     // save the list and check for errors
-    list.save(function(err) {p
+    list.save(function(err) {
       if (err)
         res.send(err);
         
