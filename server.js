@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost:27017/todolist');
 var app = express();
 
 // use body-parser with express
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended:true
 }));
@@ -26,14 +27,14 @@ var router = express.Router();
 
 // create endpoint handlers for /lists
 router.route('/lists')
-  .post(listController.postLists)
-  .get(listController.getLists);
+  .post(authController.isAuthenticated, listController.postLists)
+  .get(authController.isAuthenticated, listController.getLists);
 
 // create endpoint handlers for /lists/:list_id
 router.route('/lists/:list_id')
-  .get(listController.getList)
-  .put(listController.putList)
-  .delete(listController.deleteList);
+  .get(authController.isAuthenticated, listController.getList)
+  .put(authController.isAuthenticated, listController.putList)
+  .delete(authController.isAuthenticated, listController.deleteList);
   
 // create endpoint handlers for /users
 router.route('/users')
