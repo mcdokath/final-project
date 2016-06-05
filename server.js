@@ -10,6 +10,11 @@ mongoose.connect('mongodb://localhost:27017/beerlocker');
 // Create express application
 var app = express();
 
+// Use body-parser with express
+app.use(bodyParser.urlencoded({
+  extended:true
+}));
+
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
 
