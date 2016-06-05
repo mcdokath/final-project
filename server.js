@@ -10,14 +10,14 @@ mongoose.connect('mongodb://localhost:27017/todolist');
 // Create express application
 var app = express();
 
+// Use environment defined port or 3000
+var port = process.env.PORT || 3000;
+
 // Use the body-parser package in express
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
-// Use environment defined port or 3000
-var port = process.env.PORT || 3000;
 
 // Create Express router
 var router = express.Router();
