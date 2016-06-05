@@ -3,6 +3,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var listController = require('./controllers/list');
+var userController = require('./controllers/user');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/todolist');
@@ -28,6 +29,11 @@ router.route('/lists/:list_id')
   .get(listController.getList)
   .put(listController.putList)
   .delete(listController.deleteList);
+  
+// create endpoint handlers for /users
+router.route('/users')
+  .post(userController.postUsers)
+  .get(userController.getUsers);
 
 // Register all routes with /api
 app.use('/api', router);
