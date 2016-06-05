@@ -2,6 +2,7 @@
   "name": "to-do-list",
   "main": "server.js",
   "dependencies": {
-    "express": "~4.1.1"
+    "express": "~4.1.1",
+    "mongoose": "^4.4.19"
   }
 }
