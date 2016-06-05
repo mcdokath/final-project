@@ -61,8 +61,11 @@ listsRoute.get(function(req, res) {
   });
 });
 
+// create new route for /lists/:list_id prefix
+var listRoute = router.route('/lists/:list_id');
+
 // create /api/lists/:list_id to GET a single list
-listsRoute.get(function(req, res) {
+listRoute.get(function(req, res) {
   // use List model to find list by ID
   List.findById(req.params.list_id, function(err, list) {
     if (err)
