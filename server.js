@@ -6,6 +6,7 @@ var passport = require('passport');
 var listController = require('./controllers/list');
 var userController = require('./controllers/user');
 var authController = require('./controllers/auth');
+var clientController = require('./controllers/client');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/todolist');
@@ -40,6 +41,11 @@ router.route('/lists/:list_id')
 router.route('/users')
   .post(userController.postUsers)
   .get(authController.isAuthenticated, userController.getUsers);
+  
+// create endpoint handlers for /clients
+router.route('/clients')
+  .post(authController.isAuthenticated, clientController.postClients)
+  .get(authController.isAuthenticated, clientController.getClients);
 
 // Register all routes with /api
 app.use('/api', router);
