@@ -1,6 +1,7 @@
 // Include required packages
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 var List = require('./models/list');
 
 // Connect to MongoDB
@@ -8,13 +9,12 @@ mongoose.connect('mongodb://localhost:27017/todolist');
 
 // Create express application with bodyparser
 var app = express();
-var bodyParser = require('body-parser');
 
 // Use body-parser with express
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended:true
 }));
-app.use(bodyParser.json());
 
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
