@@ -120,3 +120,5 @@ app.use('/api', router);
 // Start the server
 app.listen(port);
 console.log('Insert list on port ' + port);
+console.log(req.headers);
+console.log(req.body);
