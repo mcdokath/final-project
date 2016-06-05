@@ -8,6 +8,7 @@ var userController = require('./controllers/user');
 var authController = require('./controllers/auth');
 var clientController = require('./controllers/client');
 var ejs = require('ejs');
+var session = require('express-session');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/todolist');
@@ -22,6 +23,13 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended:true
+}));
+
+// use express session support (required by OAuth2orize)
+app.use(session({
+  secret: 'Super Secret Session Key',
+  saveUninitialized: true,
+  resave: true
 }));
 
 // use passport with express
