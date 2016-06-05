@@ -11,6 +11,7 @@ exports.postLists = function(req, res) {
   list.item1 = req.body.item1;
   list.item2 = req.body.item2;
   list.item3 = req.body.item3;
+  list.userId = req.user._id;
   
   // save list and check for errors
   list.save(function(err) {
@@ -24,7 +25,7 @@ exports.postLists = function(req, res) {
 // Create /api/lists for GET requests
 exports.getLists = function(req, res) {
   // use List model to find all lists
-  List.find(function(err, lists) {
+  List.find({ userId: req.user._id }, function(err, lists) {
     if (err)
       res.send(err);
     
@@ -35,7 +36,7 @@ exports.getLists = function(req, res) {
 // Create /api/lists/:list_id for GET requests
 exports.getList = function(req, res) {
   // use List model to find specific list
-  List.findById(req.params.list_id, function(err, list) {
+  List.findById({ userId: req.user._id, _id: req.params.list_id}, function(err, list) {
     if (err)
       res.send(err);
       
@@ -45,28 +46,12 @@ exports.getList = function(req, res) {
 
 // Create /api/lists/:list_id for PUT requests
 exports.putList = function(req, res) {
-  // use List model to find specific list
-  List.findById(req.params.list_id, function(err, list) {
+  // use List model to find specific list  WE NEED TO BE ABLE TO UPDATE ANY PART OF THE LIST
+  List.update({ userId: req.user._id, _id: req.params.list_id }, { name: req.body.name }, function(err, list) {
     if (err)
       res.send(err);
-      
-    // update list values
-    if (req.body.name)
-      list.name = req.body.name;
-    if (req.body.item1)
-      list.item1 = req.body.item1;
-    if (req.body.item2)
-      list.item2 = req.body.item2;
-    if (req.body.item3)
-      list.item3 = req.body.item3;
-    
-    // save list and check for errors
-    list.save(function(err) {
-      if (err)
-        res.send(err);
-      
-      res.json(list);
-    });
+
+    res.json({ message: 'List updated!' + list });
   });
 };
 
