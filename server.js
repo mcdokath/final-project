@@ -50,6 +50,17 @@ listsRoute.post(function(req, res) {
   });
 });
 
+// create /api/lists for GET requests
+listsRoute.get(function(req, res) {
+  // use List model to find all lists
+  List.find(function(err, lists) {
+    if (err)
+      res.send(err);
+      
+    res.json(lists);
+  });
+});
+
 // Register all routes with /api
 app.use('/api', router);
 
